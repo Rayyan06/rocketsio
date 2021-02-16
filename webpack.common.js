@@ -1,13 +1,14 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    game: './src/client/index.js',
+    game: "./src/client/index.js"
   },
   output: {
-    filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "dist")
   },
   module: {
     rules: [
@@ -17,28 +18,28 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
+            presets: ["@babel/preset-env"]
+          }
+        }
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader
           },
-          'css-loader',
-        ],
-      },
-    ],
+          "css-loader"
+        ]
+      }
+    ]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: "[name].[contenthash].css"
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'src/client/html/index.html',
-    }),
-  ],
+      filename: "index.html",
+      template: "src/client/html/index.html"
+    })
+  ]
 };

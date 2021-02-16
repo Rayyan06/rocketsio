@@ -1,7 +1,7 @@
 {
-  "name": "Rocketio",
+  "name": "rocketsio",
   "version": "1.0.0",
-  "description": "A really cool io game",
+  "description": "",
   "main": "src/server/server.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
@@ -31,5 +31,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "webpack-cli": "^3.3.11",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "keywords": []
 }
