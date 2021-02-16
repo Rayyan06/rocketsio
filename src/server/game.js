@@ -7,7 +7,7 @@ class Game {
     this.players = {};
     this.lastUpdateTime = Date.now();
     this.shouldSendUpdate = false;
-    setInterval(this.lastUpdateTime.bind(this), 1000 / 60);
+    setInterval(this.update.bind(this), 1000 / 60);
   }
 
   addPlayer(socket, username) {
@@ -43,10 +43,15 @@ class Game {
     // Send game update every other time
 
     if (this.shouldSendUpdate) {
+      const leaderboard = this.getLeaderboard();
+
       Object.keys(this.sockets).forEach((playerID) => {
         const socket = this.sockets[playerID];
-        const player = this.player[playerID];
-        socket.emit(Constants.MSG_TYPES.GAME_UPDATE, this.createUpdate(player));
+        const player = this.players[playerID];
+        socket.emit(
+          Constants.MSG_TYPES.GAME_UPDATE,
+          this.createUpdate(player, leaderboard)
+        );
       });
       this.shouldSendUpdate = false;
     } else {
@@ -54,15 +59,22 @@ class Game {
     }
   }
 
-  createUpdate(player) {
+  getLeaderboard() {
+    return Object.values(this.players)
+      .sort((p1, p2) => p2.score - p1.score)
+      .slice(0, 5)
+      .map((p) => ({ username: p.username, score: Math.round(p.score) }));
+  }
+
+  createUpdate(player, leaderboard) {
     const nearbyPlayers = Object.values(this.players).filter(
       (p) => p !== player && p.distanceTo(player) <= Constants.MAP_SIZE / 2
     );
-
     return {
       t: Date.now(),
       me: player.serializeForUpdate(),
-      others: nearbyPlayers.map((p) => p.serializeForUpdate())
+      others: nearbyPlayers.map((p) => p.serializeForUpdate()),
+      leaderboard
     };
   }
 }

@@ -18,6 +18,15 @@ function render() {
 
   renderBackground(me.x, me.y);
 
+  context.strokeStyle = "black";
+  context.lineWidth = 1;
+  context.strokeRect(
+    canvas.width / 2 - me.x,
+    canvas.height / 2 - me.y,
+    MAP_SIZE,
+    MAP_SIZE
+  );
+
   renderPlayer(me, me);
   others.forEach(renderPlayer.bind(null, me));
 }
@@ -56,7 +65,21 @@ function renderPlayer(me, player) {
   );
   context.restore();
 
-  // Draw health
+  // Draw health bar
+  context.fillStyle = "white";
+  context.fillRect(
+    canvasX - PLAYER_RADIUS,
+    canvasY + PLAYER_RADIUS + 8,
+    PLAYER_RADIUS * 2,
+    2
+  );
+  context.fillStyle = "red";
+  context.fillRect(
+    canvasX - PLAYER_RADIUS + (PLAYER_RADIUS * 2 * player.hp) / PLAYER_MAX_HP,
+    canvasY + PLAYER_RADIUS + 8,
+    PLAYER_RADIUS * 2 * (1 - player.hp / PLAYER_MAX_HP),
+    2
+  );
 }
 
 function renderMainMenu() {

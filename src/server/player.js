@@ -19,9 +19,9 @@ class Player extends ObjectClass {
     this.x = Math.max(0, Math.min(Constants.MAP_SIZE, this.x));
     this.y = Math.max(0, Math.min(Constants.MAP_SIZE, this.y));
   }
-  serializerForUpdate() {
+  serializeForUpdate() {
     return {
-      ...this(super.serializerForUpdate()),
+      ...super.serializeForUpdate(),
       direction: this.direction,
       hp: this.hp
     };
