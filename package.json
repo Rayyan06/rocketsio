@@ -1,7 +1,7 @@
 {
   "name": "rocketsio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cool game lol",
   "main": "src/server/server.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
