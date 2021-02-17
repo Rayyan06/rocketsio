@@ -76,7 +76,7 @@ function interpolateObject(object1, object2, ratio) {
   }
 
   const interpolated = {};
-  Object.keys(object1).forEach((key) => {
+  Object.keys(object1).forEach(key => {
     if (key === 'direction') {
       interpolated[key] = interpolateDirection(
         object1[key],
@@ -91,10 +91,10 @@ function interpolateObject(object1, object2, ratio) {
 }
 
 function interpolateObjectArray(objects1, objects2, ratio) {
-  return objects1.map((o) =>
+  return objects1.map(o =>
     interpolateObject(
       o,
-      objects2.find((o2) => o.id === o2.id),
+      objects2.find(o2 => o.id === o2.id),
       ratio
     )
   );

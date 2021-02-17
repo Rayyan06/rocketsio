@@ -11,14 +11,14 @@ const socket = io(`${socketProtocol}://${window.location.host}`, {
   reconnection: false
 });
 
-const connectedPromise = new Promise((resolve) => {
+const connectedPromise = new Promise(resolve => {
   socket.on('connect', () => {
     console.log('Connected to server!');
     resolve();
   });
 });
 
-export const connect = (onGameOver) =>
+export const connect = onGameOver =>
   connectedPromise.then(() => {
     // Register callbacks
     socket.on(Constants.MSG_TYPES.GAME_UPDATE, processGameUpdate);
@@ -28,10 +28,10 @@ export const connect = (onGameOver) =>
     });
   });
 
-export const play = (username) => {
+export const play = username => {
   socket.emit(Constants.MSG_TYPES.JOIN_GAME, username);
 };
 
-export const updateDirection = throttle(20, (dir) => {
+export const updateDirection = throttle(20, dir => {
   socket.emit(Constants.MSG_TYPES.INPUT, dir);
 });

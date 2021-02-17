@@ -9,7 +9,7 @@
   },
   "plugins": ["import", "jest"],
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["error", "always"],
     "no-console": "off",
     "no-else-return": "off",
     "no-plusplus": "off",

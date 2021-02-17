@@ -37,17 +37,17 @@ class Game {
     this.lastUpdateTime = now;
 
     const bulletsToRemove = [];
-    this.bullets.forEach((bullet) => {
+    this.bullets.forEach(bullet => {
       if (bullet.update(dt)) {
         // Destroy this bullet
         bulletsToRemove.push(bullet);
       }
     });
     this.bullets = this.bullets.filter(
-      (bullet) => !bulletsToRemove.includes(bullet)
+      bullet => !bulletsToRemove.includes(bullet)
     );
     // Update each player
-    Object.keys(this.sockets).forEach((playerID) => {
+    Object.keys(this.sockets).forEach(playerID => {
       const player = this.players[playerID];
       const newBullet = player.update(dt);
       if (newBullet) {
@@ -59,16 +59,16 @@ class Game {
       Object.values(this.players),
       this.bullets
     );
-    destroyedBullets.forEach((b) => {
+    destroyedBullets.forEach(b => {
       if (this.players[b.parentID]) {
         this.players[b.parentID].onDealtDamage();
       }
     });
     this.bullets = this.bullets.filter(
-      (bullet) => !destroyedBullets.includes(bullet)
+      bullet => !destroyedBullets.includes(bullet)
     );
 
-    Object.keys(this.sockets).forEach((playerID) => {
+    Object.keys(this.sockets).forEach(playerID => {
       const socket = this.sockets[playerID];
       const player = this.players[playerID];
       if (player.hp <= 0) {
@@ -82,7 +82,7 @@ class Game {
     if (this.shouldSendUpdate) {
       const leaderboard = this.getLeaderboard();
 
-      Object.keys(this.sockets).forEach((playerID) => {
+      Object.keys(this.sockets).forEach(playerID => {
         const socket = this.sockets[playerID];
         const player = this.players[playerID];
         socket.emit(
@@ -100,22 +100,22 @@ class Game {
     return Object.values(this.players)
       .sort((p1, p2) => p2.score - p1.score)
       .slice(0, 5)
-      .map((p) => ({ username: p.username, score: Math.round(p.score) }));
+      .map(p => ({ username: p.username, score: Math.round(p.score) }));
   }
 
   createUpdate(player, leaderboard) {
     const nearbyPlayers = Object.values(this.players).filter(
-      (p) => p !== player && p.distanceTo(player) <= Constants.MAP_SIZE / 2
+      p => p !== player && p.distanceTo(player) <= Constants.MAP_SIZE / 2
     );
     const nearbyBullets = this.bullets.filter(
-      (b) => b.distanceTo(player) <= Constants.MAP_SIZE / 2
+      b => b.distanceTo(player) <= Constants.MAP_SIZE / 2
     );
 
     return {
       t: Date.now(),
       me: player.serializeForUpdate(),
-      others: nearbyPlayers.map((p) => p.serializeForUpdate()),
-      bullets: nearbyBullets.map((b) => b.serializeForUpdate()),
+      others: nearbyPlayers.map(p => p.serializeForUpdate()),
+      bullets: nearbyBullets.map(b => b.serializeForUpdate()),
       leaderboard
     };
   }

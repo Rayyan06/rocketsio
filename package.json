@@ -8,6 +8,7 @@
     "develop": "cross-env NODE_ENV=development node src/server/server.js",
     "start": "cross-env NODE_ENV=production node src/server/server.js",
     "lint": "eslint --cache --ext .js,.jsx src/",
+    "fix": "eslint --fix --ext .js,.jsx src/",
 
     "test": "jest"
   },
