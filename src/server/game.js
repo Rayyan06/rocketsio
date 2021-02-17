@@ -1,10 +1,12 @@
 const Constants = require("../shared/constants.js");
 const Player = require("./player");
+const applyCollisions = require("./collisions");
 
 class Game {
   constructor() {
     this.sockets = {};
     this.players = {};
+    this.bullets = [];
     this.lastUpdateTime = Date.now();
     this.shouldSendUpdate = false;
     setInterval(this.update.bind(this), 1000 / 60);
@@ -34,10 +36,45 @@ class Game {
     const dt = (now - this.lastUpdateTime) / 1000;
     this.lastUpdateTime = now;
 
+    const bulletsToRemove = [];
+    this.bullets.forEach((bullet) => {
+      if (bullet.update(dt)) {
+        // Destroy this bullet
+        bulletsToRemove.push(bullet);
+      }
+    });
+    this.bullets = this.bullets.filter(
+      (bullet) => !bulletsToRemove.includes(bullet)
+    );
     // Update each player
     Object.keys(this.sockets).forEach((playerID) => {
       const player = this.players[playerID];
-      player.update(dt);
+      const newBullet = player.update(dt);
+      if (newBullet) {
+        this.bullets.push(newBullet);
+      }
+    });
+
+    const destroyedBullets = applyCollisions(
+      Object.values(this.players),
+      this.bullets
+    );
+    destroyedBullets.forEach((b) => {
+      if (this.players[b.parentID]) {
+        this.players[b.parentID].onDealtDamage();
+      }
+    });
+    this.bullets = this.bullets.filter(
+      (bullet) => !destroyedBullets.includes(bullet)
+    );
+
+    Object.keys(this.sockets).forEach((playerID) => {
+      const socket = this.sockets[playerID];
+      const player = this.players[playerID];
+      if (player.hp <= 0) {
+        socket.emit(Constants.MSG_TYPES.GAME_OVER);
+        this.removePlayer(socket);
+      }
     });
 
     // Send game update every other time
@@ -70,10 +107,15 @@ class Game {
     const nearbyPlayers = Object.values(this.players).filter(
       (p) => p !== player && p.distanceTo(player) <= Constants.MAP_SIZE / 2
     );
+    const nearbyBullets = this.bullets.filter(
+      (b) => b.distanceTo(player) <= Constants.MAP_SIZE / 2
+    );
+
     return {
       t: Date.now(),
       me: player.serializeForUpdate(),
       others: nearbyPlayers.map((p) => p.serializeForUpdate()),
+      bullets: nearbyBullets.map((b) => b.serializeForUpdate()),
       leaderboard
     };
   }

@@ -1,17 +1,26 @@
 import { getAsset } from "./assets";
 import { getCurrentState } from "./state";
-
+import { debounce } from "throttle-debounce";
 const Constants = require("../shared/constants");
 const { PLAYER_RADIUS, PLAYER_MAX_HP, MAP_SIZE } = Constants;
 
 const canvas = document.getElementById("game-canvas");
 const context = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+setCanvasDimensions();
+
+function setCanvasDimensions() {
+  // On small screens (e.g. phones), we want to "zoom out" so players can still see at least
+  // 800 in-game units of width.
+  const scaleRatio = Math.max(1, 800 / window.innerWidth);
+  canvas.width = scaleRatio * window.innerWidth;
+  canvas.height = scaleRatio * window.innerHeight;
+}
+
+window.addEventListener("resize", debounce(40, setCanvasDimensions));
 
 function render() {
-  const { me, others } = getCurrentState();
+  const { me, others, bullets } = getCurrentState();
   if (!me) {
     return;
   }
@@ -27,6 +36,7 @@ function render() {
     MAP_SIZE
   );
 
+  bullets.forEach(renderBullet.bind(null, me));
   renderPlayer(me, me);
   others.forEach(renderPlayer.bind(null, me));
 }
@@ -79,6 +89,17 @@ function renderPlayer(me, player) {
     canvasY + PLAYER_RADIUS + 8,
     PLAYER_RADIUS * 2 * (1 - player.hp / PLAYER_MAX_HP),
     2
+  );
+}
+
+function renderBullet(me, bullet) {
+  const { x, y } = bullet;
+  context.drawImage(
+    getAsset("bullet.svg"),
+    canvas.width / 2 + x - me.x - Constants.BULLET_RADIUS,
+    canvas.height / 2 + y - me.y - Constants.BULLET_RADIUS,
+    Constants.BULLET_RADIUS * 2,
+    Constants.BULLET_RADIUS * 2
   );
 }
 

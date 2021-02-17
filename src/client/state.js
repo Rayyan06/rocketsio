@@ -2,7 +2,7 @@ import { updateLeaderboard } from "./leaderboard";
 
 // The "current" state will always be RENDER_DELAY ms behind server time.
 // This makes gameplay smoother and lag less noticeable.
-const RENDER_DELAY = 100;
+const RENDER_DELAY = 0;
 
 const gameUpdates = [];
 let gameStart = 0;
@@ -53,7 +53,6 @@ export function getCurrentState() {
 
   const base = getBaseUpdate();
   const serverTime = currentServerTime();
-
   // If base is the most recent update we have, use its state.
   // Otherwise, interpolate between its state and the state of (base + 1).
   if (base < 0 || base === gameUpdates.length - 1) {
@@ -62,9 +61,11 @@ export function getCurrentState() {
     const baseUpdate = gameUpdates[base];
     const next = gameUpdates[base + 1];
     const ratio = (serverTime - baseUpdate.t) / (next.t - baseUpdate.t);
+
     return {
       me: interpolateObject(baseUpdate.me, next.me, ratio),
-      others: interpolateObjectArray(baseUpdate.others, next.others, ratio)
+      others: interpolateObjectArray(baseUpdate.others, next.others, ratio),
+      bullets: interpolateObjectArray(baseUpdate.bullets, next.bullets, ratio)
     };
   }
 }
