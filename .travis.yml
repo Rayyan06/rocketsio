@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '10'
+script:
+  - yarn install
+  - yarn run lint
+  - yarn test
+cache:
+  directories:
+    - node_modules
+notifications:
+  email:
+    on_success: never
+    on_failure: always
