@@ -1,4 +1,4 @@
-import { updateDirection } from "./networking";
+import { updateDirection } from './networking';
 
 function onMouseInput(e) {
   handleInput(e.clientX, e.clientY);
@@ -15,11 +15,11 @@ function handleInput(x, y) {
 }
 
 export function startCapturingInput() {
-  window.addEventListener("mousemove", onMouseInput);
-  window.addEventListener("touchmove", onTouchInput);
+  window.addEventListener('mousemove', onMouseInput);
+  window.addEventListener('touchmove', onTouchInput);
 }
 
 export function stopCapturingInput() {
-  window.removeEventListener("mousemove", onMouseInput);
-  window.removeEventListener("touchmove", onTouchInput);
+  window.removeEventListener('mousemove', onMouseInput);
+  window.removeEventListener('touchmove', onTouchInput);
 }

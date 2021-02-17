@@ -1,35 +1,35 @@
-const Player = require("./player");
-const Bullet = require("./bullet");
-const Constants = require("../shared/constants");
+const Player = require('./player');
+const Bullet = require('./bullet');
+const Constants = require('../shared/constants');
 
-describe("Player", () => {
-  describe("update", () => {
-    it("should gain score each second", () => {
-      const player = new Player("123", "guest");
+describe('Player', () => {
+  describe('update', () => {
+    it('should gain score each second', () => {
+      const player = new Player('123', 'guest');
       const initialScore = player.score;
 
       player.update(1);
 
       expect(player.score).toBeGreaterThan(initialScore);
     });
-    it("should fire bullet on update", () => {
-      const player = new Player("123", "guest");
+    it('should fire bullet on update', () => {
+      const player = new Player('123', 'guest');
 
       expect(player.update(Constants.PLAYER_FIRE_COOLDOWN / 3)).toBeInstanceOf(
         Bullet
       );
     });
-    it("should not fire bullet during cooldown", () => {
-      const player = new Player("123", "guest");
+    it('should not fire bullet during cooldown', () => {
+      const player = new Player('123', 'guest');
 
       player.update(Constants.PLAYER_FIRE_COOLDOWN / 3);
 
       expect(player.update(Constants.PLAYER_FIRE_COOLDOWN / 3)).toBe(null);
     });
   });
-  describe("takeBulletDamage", () => {
-    it("should take damage when hit", () => {
-      const player = new Player("123", "guest");
+  describe('takeBulletDamage', () => {
+    it('should take damage when hit', () => {
+      const player = new Player('123', 'guest');
 
       const initialHp = player.hp;
 
@@ -39,9 +39,9 @@ describe("Player", () => {
     });
   });
 
-  describe("onDealtDamage", () => {
-    it("should increment score when dealing damage", () => {
-      const player = new Player("123", "guest");
+  describe('onDealtDamage', () => {
+    it('should increment score when dealing damage', () => {
+      const player = new Player('123', 'guest');
 
       const initialScore = player.score;
 
@@ -51,9 +51,9 @@ describe("Player", () => {
     });
   });
 
-  describe("serializeForUpdate", () => {
-    it("include hp and direction in serialization", () => {
-      const player = new Player("123", "guest");
+  describe('serializeForUpdate', () => {
+    it('include hp and direction in serialization', () => {
+      const player = new Player('123', 'guest');
 
       expect(player.serializeForUpdate()).toEqual(
         expect.objectContaining({

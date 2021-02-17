@@ -1,19 +1,19 @@
-import io from "socket.io-client";
-import { throttle } from "throttle-debounce";
-import { processGameUpdate } from "./state";
+import io from 'socket.io-client';
+import { throttle } from 'throttle-debounce';
+import { processGameUpdate } from './state';
 
-const Constants = require("../shared/constants");
+const Constants = require('../shared/constants');
 
-const socketProtocol = window.location.protocol.includes("https")
-  ? "wss"
-  : "ws";
+const socketProtocol = window.location.protocol.includes('https')
+  ? 'wss'
+  : 'ws';
 const socket = io(`${socketProtocol}://${window.location.host}`, {
   reconnection: false
 });
 
 const connectedPromise = new Promise((resolve) => {
-  socket.on("connect", () => {
-    console.log("Connected to server!");
+  socket.on('connect', () => {
+    console.log('Connected to server!');
     resolve();
   });
 });
@@ -23,8 +23,8 @@ export const connect = (onGameOver) =>
     // Register callbacks
     socket.on(Constants.MSG_TYPES.GAME_UPDATE, processGameUpdate);
     socket.on(Constants.MSG_TYPES.GAME_OVER, onGameOver);
-    socket.on("disconnect", () => {
-      console.log("DISCONNECTED");
+    socket.on('disconnect', () => {
+      console.log('DISCONNECTED');
     });
   });
 

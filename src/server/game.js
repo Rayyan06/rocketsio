@@ -1,6 +1,6 @@
-const Constants = require("../shared/constants.js");
-const Player = require("./player");
-const applyCollisions = require("./collisions");
+const Constants = require('../shared/constants.js');
+const Player = require('./player');
+const applyCollisions = require('./collisions');
 
 class Game {
   constructor() {

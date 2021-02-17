@@ -1,10 +1,10 @@
-const Game = require("./game");
-const Constants = require("../shared/constants");
+const Game = require('./game');
+const Constants = require('../shared/constants');
 
 jest.useFakeTimers(); // Jest timers
 
-describe("Game", () => {
-  it("should update the game on an interval", () => {
+describe('Game', () => {
+  it('should update the game on an interval', () => {
     const game = new Game();
 
     // Force the game to have been created in the past
@@ -15,13 +15,13 @@ describe("Game", () => {
     expect(game.lastUpdateTime).not.toEqual(initalCreatedTime);
   });
 
-  it("should send updates on every second update", () => {
+  it('should send updates on every second update', () => {
     const game = new Game();
     const socket = {
-      id: "1234",
+      id: '1234',
       emit: jest.fn()
     };
-    game.addPlayer(socket, "guest");
+    game.addPlayer(socket, 'guest');
 
     jest.runOnlyPendingTimers();
     expect(socket.emit).toHaveBeenCalledTimes(0);
@@ -36,14 +36,14 @@ describe("Game", () => {
     expect(game.shouldSendUpdate).toBe(false);
   });
 
-  describe("handleInput", () => {
-    it("should update the direction of a player", () => {
+  describe('handleInput', () => {
+    it('should update the direction of a player', () => {
       const game = new Game();
       const socket = {
-        id: "1234",
+        id: '1234',
         emit: jest.fn()
       };
-      game.addPlayer(socket, "guest");
+      game.addPlayer(socket, 'guest');
 
       game.handleInput(socket, 2);
 

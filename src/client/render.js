@@ -1,11 +1,11 @@
-import { getAsset } from "./assets";
-import { getCurrentState } from "./state";
-import { debounce } from "throttle-debounce";
-const Constants = require("../shared/constants");
+import { getAsset } from './assets';
+import { getCurrentState } from './state';
+import { debounce } from 'throttle-debounce';
+const Constants = require('../shared/constants');
 const { PLAYER_RADIUS, PLAYER_MAX_HP, MAP_SIZE } = Constants;
 
-const canvas = document.getElementById("game-canvas");
-const context = canvas.getContext("2d");
+const canvas = document.getElementById('game-canvas');
+const context = canvas.getContext('2d');
 
 setCanvasDimensions();
 
@@ -17,7 +17,7 @@ function setCanvasDimensions() {
   canvas.height = scaleRatio * window.innerHeight;
 }
 
-window.addEventListener("resize", debounce(40, setCanvasDimensions));
+window.addEventListener('resize', debounce(40, setCanvasDimensions));
 
 function render() {
   const { me, others, bullets } = getCurrentState();
@@ -27,7 +27,7 @@ function render() {
 
   renderBackground(me.x, me.y);
 
-  context.strokeStyle = "black";
+  context.strokeStyle = 'black';
   context.lineWidth = 1;
   context.strokeRect(
     canvas.width / 2 - me.x,
@@ -52,8 +52,8 @@ function renderBackground(x, y) {
     backgroundY,
     MAP_SIZE / 2
   );
-  backgroundGradient.addColorStop(0, "black");
-  backgroundGradient.addColorStop(1, "gray");
+  backgroundGradient.addColorStop(0, 'black');
+  backgroundGradient.addColorStop(1, 'gray');
   context.fillStyle = backgroundGradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
@@ -67,7 +67,7 @@ function renderPlayer(me, player) {
   context.translate(canvasX, canvasY);
   context.rotate(direction);
   context.drawImage(
-    getAsset("ship.svg"),
+    getAsset('ship.svg'),
     -PLAYER_RADIUS,
     -PLAYER_RADIUS,
     PLAYER_RADIUS * 2,
@@ -76,14 +76,14 @@ function renderPlayer(me, player) {
   context.restore();
 
   // Draw health bar
-  context.fillStyle = "white";
+  context.fillStyle = 'white';
   context.fillRect(
     canvasX - PLAYER_RADIUS,
     canvasY + PLAYER_RADIUS + 8,
     PLAYER_RADIUS * 2,
     2
   );
-  context.fillStyle = "red";
+  context.fillStyle = 'red';
   context.fillRect(
     canvasX - PLAYER_RADIUS + (PLAYER_RADIUS * 2 * player.hp) / PLAYER_MAX_HP,
     canvasY + PLAYER_RADIUS + 8,
@@ -95,7 +95,7 @@ function renderPlayer(me, player) {
 function renderBullet(me, bullet) {
   const { x, y } = bullet;
   context.drawImage(
-    getAsset("bullet.svg"),
+    getAsset('bullet.svg'),
     canvas.width / 2 + x - me.x - Constants.BULLET_RADIUS,
     canvas.height / 2 + y - me.y - Constants.BULLET_RADIUS,
     Constants.BULLET_RADIUS * 2,
