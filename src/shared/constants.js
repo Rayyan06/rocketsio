@@ -9,9 +9,9 @@ module.exports = Object.freeze({
   SCORE_BULLET_HIT: 20,
   BULLET_RADIUS: 4,
   PLAYER_HEALTH_REGEN: 0.01,
-  PLAYER_DAMAGE: 15,
+  PLAYER_DAMAGE: 10,
 
-  MAP_SIZE: 5000,
+  MAP_SIZE: 3000,
   MSG_TYPES: {
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',
