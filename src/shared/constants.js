@@ -9,7 +9,7 @@ module.exports = Object.freeze({
   SCORE_BULLET_HIT: 20,
   BULLET_RADIUS: 4,
   PLAYER_HEALTH_REGEN: 0.01,
-  PLAYER_DAMAGE: 10,
+  PLAYER_DAMAGE: 2,
 
   MAP_SIZE: 3000,
   MSG_TYPES: {
