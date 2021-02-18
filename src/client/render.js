@@ -1,6 +1,8 @@
 import { getAsset } from './assets';
 import { getCurrentState } from './state';
 import { debounce } from 'throttle-debounce';
+import escape from 'lodash/escape';
+
 const Constants = require('../shared/constants');
 const { PLAYER_RADIUS, PLAYER_MAX_HP, MAP_SIZE } = Constants;
 
@@ -58,8 +60,10 @@ function renderBackground(x, y) {
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+let name;
 function renderPlayer(me, player) {
   const { x, y, direction } = player;
+
   const canvasX = canvas.width / 2 + x - me.x;
   const canvasY = canvas.height / 2 + y - me.y;
 
@@ -74,6 +78,14 @@ function renderPlayer(me, player) {
     PLAYER_RADIUS * 2
   );
   context.restore();
+
+  // Show the players name
+
+  context.fillStyle = 'white';
+  context.textAlign = 'center';
+
+  context.font = '15px monospace';
+  context.fillText('player.username', canvasX, canvasY - PLAYER_RADIUS - 6);
 
   // If the player health is not equal to the maximum health, then draw the health bar
   if (player.hp !== Constants.PLAYER_MAX_HP) {

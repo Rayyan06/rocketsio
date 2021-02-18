@@ -56,7 +56,8 @@ class Player extends ObjectClass {
       ...super.serializeForUpdate(),
       direction: this.direction,
       hp: this.hp,
-      isColliding: this.isColliding
+      isColliding: this.isColliding,
+      username: this.username
     };
   }
 }

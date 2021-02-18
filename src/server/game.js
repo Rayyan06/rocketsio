@@ -61,8 +61,13 @@ class Game {
     const playersCollided = applyPlayerCollisions(Object.values(this.players));
 
     playersCollided.forEach(b => {
-      if (this.players[b.id]) {
-        this.players[b.id].isColliding = true;
+      if (this.players[b.player.id]) {
+        this.players[b.player.id].isColliding = true;
+        if (b.otherPlayer.hp <= 0) {
+          this.players[b.player.id].score += b.otherPlayer.score;
+        } else if (b.player.score <= 0) {
+          b.otherPlayer.score += b.player.score;
+        }
       }
     });
 
@@ -71,8 +76,11 @@ class Game {
       this.bullets
     );
     destroyedBullets.forEach(b => {
-      if (this.players[b.parentID]) {
-        this.players[b.parentID].onDealtDamage();
+      if (this.players[b.bullet.parentID]) {
+        this.players[b.bullet.parentID].onDealtDamage();
+        if (b.player.hp <= 0) {
+          this.players[b.bullet.parentID].score += b.player.score;
+        }
       }
     });
     this.bullets = this.bullets.filter(
@@ -83,7 +91,9 @@ class Game {
       const socket = this.sockets[playerID];
       const player = this.players[playerID];
       if (player.hp <= 0) {
-        socket.emit(Constants.MSG_TYPES.GAME_OVER);
+        let finalScore = player.score;
+        console.log(finalScore);
+        socket.emit(Constants.MSG_TYPES.GAME_OVER, finalScore);
         this.removePlayer(socket);
       }
     });
