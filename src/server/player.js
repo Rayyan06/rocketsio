@@ -19,9 +19,11 @@ class Player extends ObjectClass {
     this.score += dt * Constants.SCORE_PER_SECOND;
 
     // Health regen
-    //this.hp += dt * Constants.PLAYER_HEALTH_REGEN;
+    this.hp += dt * Constants.PLAYER_HEALTH_REGEN;
 
-    // this.hp = Math.max(-1, Constants.PLAYER_MAX_HP);
+    if (this.hp > Constants.PLAYER_MAX_HP) {
+      this.hp = Constants.PLAYER_MAX_HP;
+    }
 
     // The player should stay in the bounds
     this.x = Math.max(0, Math.min(Constants.MAP_SIZE, this.x));
