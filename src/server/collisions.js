@@ -34,7 +34,7 @@ function applyPlayerCollisions(players) {
         player.id !== otherPlayer.id &&
         player.distanceTo(otherPlayer) <= Constants.PLAYER_RADIUS * 2
       ) {
-        collidedPlayers.push({ player: player, otherPlayer: otherPlayer);
+        collidedPlayers.push({ player: player, otherPlayer: otherPlayer });
         player.isColliding = true;
         break;
       } else {
