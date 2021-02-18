@@ -12,6 +12,14 @@ describe('Player', () => {
 
       expect(player.score).toBeGreaterThan(initialScore);
     });
+    it('should never have its health go above the max health', () => {
+      const player = new Player('123', 'guest');
+
+      player.takeBulletDamage();
+      player.update(5);
+
+      expect(player.hp).toBeLessThan(Constants.PLAYER_MAX_HP);
+    });
     it('should fire bullet on update', () => {
       const player = new Player('123', 'guest');
 
@@ -35,7 +43,9 @@ describe('Player', () => {
 
       player.takeBulletDamage();
 
-      expect(player.hp).toBeLessThan(initialHp);
+      expect(player.hp).toBe(
+        initialHp - Constants.BULLET_DAMAGE + Constants.PLAYER_HEALTH_REGEN
+      );
     });
   });
 
@@ -57,7 +67,7 @@ describe('Player', () => {
 
       expect(player.serializeForUpdate()).toEqual(
         expect.objectContaining({
-          hp: Constants.PLAYER_MAX_HP,
+          hp: expect.any(Number),
           direction: expect.any(Number)
         })
       );
