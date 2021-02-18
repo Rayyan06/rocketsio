@@ -67,7 +67,7 @@ function renderPlayer(me, player) {
   context.translate(canvasX, canvasY);
   context.rotate(direction);
   context.drawImage(
-    player.isColliding ? getAsset('ship.svg') : getAsset('shipColliding.svg'),
+    player.isColliding ? getAsset('shipColliding.svg') : getAsset('ship.svg'),
     -PLAYER_RADIUS,
     -PLAYER_RADIUS,
     PLAYER_RADIUS * 2,
