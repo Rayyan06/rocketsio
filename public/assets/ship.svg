@@ -2,7 +2,7 @@
 <svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="64" width="64" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 64.000001 64.000001">
  <defs id="defs4">
   <filter id="filter4138" style="color-interpolation-filters:sRGB" height="1.238" width="1.2421" y="-.11898" x="-.12103">
-   <feGaussianBlur id="feGaussianBlur4140" stdDeviation="2.925003"/>
+   <feGaussianBlur id="feGaussianBlur4140" stdDeviation="2.3"/>
   </filter>
  </defs>
  <g id="layer1" transform="translate(0 -988.36)">
