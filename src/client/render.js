@@ -75,21 +75,24 @@ function renderPlayer(me, player) {
   );
   context.restore();
 
-  // Draw health bar
-  context.fillStyle = 'white';
-  context.fillRect(
-    canvasX - PLAYER_RADIUS,
-    canvasY + PLAYER_RADIUS + 8,
-    PLAYER_RADIUS * 2,
-    2
-  );
-  context.fillStyle = 'red';
-  context.fillRect(
-    canvasX - PLAYER_RADIUS + (PLAYER_RADIUS * 2 * player.hp) / PLAYER_MAX_HP,
-    canvasY + PLAYER_RADIUS + 8,
-    PLAYER_RADIUS * 2 * (1 - player.hp / PLAYER_MAX_HP),
-    2
-  );
+  // If the player health is not equal to the maximum health, then draw the health bar
+  if (player.hp !== Constants.PLAYER_MAX_HP) {
+    // Draw health bar
+    context.fillStyle = 'white';
+    context.fillRect(
+      canvasX - PLAYER_RADIUS,
+      canvasY + PLAYER_RADIUS + 8,
+      PLAYER_RADIUS * 2,
+      2
+    );
+    context.fillStyle = 'red';
+    context.fillRect(
+      canvasX - PLAYER_RADIUS + (PLAYER_RADIUS * 2 * player.hp) / PLAYER_MAX_HP,
+      canvasY + PLAYER_RADIUS + 8,
+      PLAYER_RADIUS * 2 * (1 - player.hp / PLAYER_MAX_HP),
+      2
+    );
+  }
 }
 
 function renderBullet(me, bullet) {
