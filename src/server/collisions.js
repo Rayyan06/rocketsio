@@ -42,6 +42,7 @@ function applyPlayerCollisions(players) {
       }
     }
   }
+  return collidedPlayers;
 }
 
 module.exports = { applyBulletCollisions, applyPlayerCollisions };

@@ -18,7 +18,7 @@ describe('Player', () => {
       player.takeBulletDamage();
       player.update(5);
 
-      expect(player.hp).toBeLessThan(Constants.PLAYER_MAX_HP);
+      expect(player.hp).toBeLessThanOrEqual(Constants.PLAYER_MAX_HP);
     });
     it('should fire bullet on update', () => {
       const player = new Player('123', 'guest');
@@ -43,9 +43,7 @@ describe('Player', () => {
 
       player.takeBulletDamage();
 
-      expect(player.hp).toBe(
-        initialHp - Constants.BULLET_DAMAGE + Constants.PLAYER_HEALTH_REGEN
-      );
+      expect(player.hp).toBe(initialHp - Constants.BULLET_DAMAGE);
     });
   });
 
