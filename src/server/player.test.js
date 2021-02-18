@@ -62,13 +62,14 @@ describe('Player', () => {
   });
 
   describe('serializeForUpdate', () => {
-    it('include hp and direction in serialization', () => {
+    it('include hp, direction, and isCollided in serialization', () => {
       const player = new Player('123', 'guest');
 
       expect(player.serializeForUpdate()).toEqual(
         expect.objectContaining({
           hp: expect.any(Number),
-          direction: expect.any(Number)
+          direction: expect.any(Number),
+          isCollided: expect.any(Boolean)
         })
       );
     });

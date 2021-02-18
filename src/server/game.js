@@ -1,6 +1,9 @@
 const Constants = require('../shared/constants.js');
 const Player = require('./player');
-const applyCollisions = require('./collisions');
+const {
+  applyBulletCollisions,
+  applyPlayerCollisions
+} = require('./collisions');
 
 class Game {
   constructor() {
@@ -55,7 +58,15 @@ class Game {
       }
     });
 
-    const destroyedBullets = applyCollisions(
+    const playersCollided = applyPlayerCollisions(Object.values(this.players));
+
+    playersCollided.forEach(b => {
+      if (this.players[b.id]) {
+        this.players[b.id].isColliding = true;
+      }
+    });
+
+    const destroyedBullets = applyBulletCollisions(
       Object.values(this.players),
       this.bullets
     );

@@ -9,6 +9,7 @@ class Player extends ObjectClass {
     this.hp = Constants.PLAYER_MAX_HP;
     this.fireCooldown = 0;
     this.score = 0;
+    this.isColliding = false;
   }
 
   update(dt) {
@@ -28,6 +29,9 @@ class Player extends ObjectClass {
 
     this.fireCooldown -= dt;
 
+    if (this.isColliding) {
+      this.onPlayerCollision();
+    }
     if (this.fireCooldown <= 0) {
       this.fireCooldown += Constants.PLAYER_FIRE_COOLDOWN;
       return new Bullet(this.id, this.x, this.y, this.direction);
@@ -42,11 +46,15 @@ class Player extends ObjectClass {
   onDealtDamage() {
     this.score += Constants.SCORE_BULLET_HIT;
   }
+  onPlayerCollision() {
+    this.hp -= Constants.PLAYER_DAMAGE;
+  }
   serializeForUpdate() {
     return {
       ...super.serializeForUpdate(),
       direction: this.direction,
-      hp: this.hp
+      hp: this.hp,
+      isColliding: this.isColliding
     };
   }
 }
