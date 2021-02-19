@@ -1,4 +1,9 @@
-const ASSET_NAMES = ['ship.svg', 'bullet.svg', 'shipColliding.svg'];
+const ASSET_NAMES = [
+  'ship.svg',
+  'bullet.svg',
+  'shipColliding.svg',
+  'shipBoosting.svg'
+];
 
 const assets = {};
 const downloadPromise = Promise.all(ASSET_NAMES.map(downloadAsset));

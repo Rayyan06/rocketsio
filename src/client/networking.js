@@ -40,3 +40,7 @@ export const play = username => {
 export const updateDirection = throttle(20, dir => {
   socket.emit(Constants.MSG_TYPES.INPUT, dir);
 });
+
+export const handleKeyPress = keyCode => {
+  socket.emit(Constants.MSG_TYPES.KEY_PRESS, keyCode);
+};

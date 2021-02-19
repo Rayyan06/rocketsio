@@ -7,7 +7,7 @@
  </defs>
  <g id="layer1" transform="translate(0 -988.36)">
   <g id="g4142" stroke-linejoin="round" transform="matrix(.95 0 0 .95 1.6 50.993)" stroke="#fff">
-   <path id="path4155" d="m3 1049.4 29-59 29 59-29-18z" fill-rule="evenodd" stroke-width="2" fill="#000000"/>
+   <path id="path4155" d="m3 1049.4 29-59 29 59-29-18z" fill-rule="evenodd" stroke-width="2" fill="#00ff00"/>
    <path id="path4136" d="m3 1049.4 29-59 29 59-29-18z" filter="url(#filter4138)" stroke-width="4" fill="none"/>
   </g>
  </g>

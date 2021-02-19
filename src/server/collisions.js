@@ -14,7 +14,7 @@ function applyBulletCollisions(players, bullets) {
         player.distanceTo(bullet) <=
           Constants.PLAYER_RADIUS + Constants.BULLET_RADIUS
       ) {
-        destroyedBullets.push({ bullet: bullet, target: player });
+        destroyedBullets.push({ bullet: bullet, player: player });
         player.takeBulletDamage();
         break;
       }

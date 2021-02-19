@@ -10,10 +10,25 @@ class Player extends ObjectClass {
     this.fireCooldown = 0;
     this.score = 0;
     this.isColliding = false;
+    this.isBoosting = false;
   }
 
   update(dt) {
     super.update(dt);
+
+    // acceleration
+
+    if (this.isBoosting) {
+      this.speed += dt * Constants.PLAYER_ACCELERATION;
+
+      if (this.speed > Constants.PLAYER_BOOST_SPEED) {
+        this.speed = Constants.PLAYER_BOOST_SPEED;
+      }
+    } else {
+      if (this.speed > Constants.PLAYER_SPEED) {
+        this.speed = Constants.PLAYER_SPEED;
+      }
+    }
 
     // update score
     this.score += dt * Constants.SCORE_PER_SECOND;
@@ -57,7 +72,8 @@ class Player extends ObjectClass {
       direction: this.direction,
       hp: this.hp,
       isColliding: this.isColliding,
-      username: this.username
+      username: this.username,
+      isBoosting: this.isBoosting
     };
   }
 }

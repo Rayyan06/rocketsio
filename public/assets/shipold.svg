@@ -1,1 +1,76 @@
-<svg version="1.1" viewBox="0.0 0.0 960.0 720.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><clipPath id="p.0"><path d="m0 0l960.0 0l0 720.0l-960.0 0l0 -720.0z" clip-rule="nonzero"/></clipPath><g clip-path="url(#p.0)"><path fill="#000000" fill-opacity="0.0" d="m0 0l960.0 0l0 720.0l-960.0 0z" fill-rule="evenodd"/><path fill="#434343" d="m389.5307 0l180.94489 0l0 382.33072l-180.94489 0z" fill-rule="evenodd"/><path stroke="#999999" stroke-width="4.0" stroke-linejoin="round" stroke-linecap="butt" d="m389.5307 0l180.94489 0l0 382.33072l-180.94489 0z" fill-rule="evenodd"/><path fill="#00b0e1" d="m229.07086 360.0l0 0c0 -114.257706 112.34482 -206.8819 250.92914 -206.8819l0 0c138.58435 0 250.92914 92.62419 250.92914 206.8819l0 0c0 114.25772 -112.34479 206.8819 -250.92914 206.8819l0 0c-138.58432 0 -250.92914 -92.624176 -250.92914 -206.8819z" fill-rule="evenodd"/><path stroke="#0083a8" stroke-width="24.0" stroke-linejoin="round" stroke-linecap="butt" d="m229.07086 360.0l0 0c0 -114.257706 112.34482 -206.8819 250.92914 -206.8819l0 0c138.58435 0 250.92914 92.62419 250.92914 206.8819l0 0c0 114.25772 -112.34479 206.8819 -250.92914 206.8819l0 0c-138.58432 0 -250.92914 -92.624176 -250.92914 -206.8819z" fill-rule="evenodd"/></g></svg>
+<!doctype html>
+<svg viewBox="13 0.118 38.363 63.544" width="38.363" height="63.544">
+  <defs>
+    <filter id="inner-shadow-filter-2" data-bx-preset="inner-shadow 1 0 0 6 0.83 rgba(0,0,0,0.7)" x="-500%" y="-500%" width="1000%" height="1000%">
+      <feOffset dx="0" dy="0"></feOffset>
+      <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+      <feComposite operator="out" in="SourceGraphic"></feComposite>
+      <feComponentTransfer result="choke">
+        <feFuncA type="linear" slope="1.66"></feFuncA>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.7)" result="color"></feFlood>
+      <feComposite operator="in" in="color" in2="choke" result="shadow"></feComposite>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"></feComposite>
+    </filter>
+    <clipPath id="clip-0">
+      <rect y="7.949" width="20.141" height="35.417" style="fill: rgb(216, 216, 216);" x="22.5"></rect>
+    </clipPath>
+    <mask id="mask-0">
+      <ellipse style="paint-order: fill; filter: url(#inner-shadow-filter-0); fill: rgb(255, 255, 255);" cx="32" cy="32" rx="9.612" ry="20" data-bx-origin="0.444444 0.5" transform="matrix(1, 0, -0.000001, 1, 0.156822, -0.456996)">
+        <title>Rocket Body</title>
+      </ellipse>
+    </mask>
+    <filter id="inner-shadow-filter-0" data-bx-preset="inner-shadow 1 0 0 2 0.32 rgba(0,0,0,0.7)" x="-500%" y="-500%" width="1000%" height="1000%">
+      <feOffset dx="0" dy="0"></feOffset>
+      <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+      <feComposite operator="out" in="SourceGraphic"></feComposite>
+      <feComponentTransfer result="choke">
+        <feFuncA type="linear" slope="0.64"></feFuncA>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.7)" result="color"></feFlood>
+      <feComposite operator="in" in="color" in2="choke" result="shadow"></feComposite>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"></feComposite>
+    </filter>
+    <linearGradient id="color-0" data-bx-pinned="true">
+      <title>Rocket Legs</title>
+      <stop style="stop-color: rgb(255, 0, 0);"></stop>
+    </linearGradient>
+    <filter id="inner-shadow-filter-1" data-bx-preset="inner-shadow 1 2 0 2 0.61 rgba(0,0,0,0.7)" x="-500%" y="-500%" width="1000%" height="1000%">
+      <feOffset dx="2" dy="0"></feOffset>
+      <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+      <feComposite operator="out" in="SourceGraphic"></feComposite>
+      <feComponentTransfer result="choke">
+        <feFuncA type="linear" slope="1.22"></feFuncA>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.7)" result="color"></feFlood>
+      <feComposite operator="in" in="color" in2="choke" result="shadow"></feComposite>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"></feComposite>
+    </filter>
+    <filter id="filter-1" data-bx-preset="inner-shadow 1 2 0 2 0.61 rgba(0,0,0,0.7)" x="-500%" y="-500%" width="1000%" height="1000%">
+      <feOffset dx="2" dy="0"></feOffset>
+      <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+      <feComposite operator="out" in="SourceGraphic"></feComposite>
+      <feComponentTransfer result="choke">
+        <feFuncA type="linear" slope="1.22"></feFuncA>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.7)" result="color"></feFlood>
+      <feComposite operator="in" in="color" in2="choke" result="shadow"></feComposite>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"></feComposite>
+    </filter>
+  </defs>
+  <g style="" transform="matrix(1.339486, 0, 0, 1.339486, -10.479849, -10.11843)" data-bx-origin="0.490272 0.5">
+    <rect x="31" y="7.649" width="1.973" height="5.411" style="fill: rgba(0, 0, 0, 0.59);">
+      <title>Gun</title>
+    </rect>
+    <rect style="clip-path: url(#clip-0); filter: url(#inner-shadow-filter-2); mask: url(#mask-0); fill: rgb(255, 247, 0);" x="21.334" y="7.642" width="21.166" height="39.263" data-bx-origin="0.475398 0.5"></rect>
+    <path style="filter: url(#inner-shadow-filter-1); fill: url(#color-0);" d="M 23.829 36.137 L 17.529 45.507 L 18.57 55.081 L 22.248 48.034 L 26.006 44.353 L 23.829 36.137 Z">
+      <title>Left leg</title>
+    </path>
+    <path style="fill: url(#color-0); filter: url(#filter-1);" d="M 44.277 54.888 L 38.801 45.518 L 39.706 35.944 L 42.903 42.991 L 46.169 46.672 L 44.277 54.888 Z" transform="matrix(-1, 0, 0, -1, 84.969997, 90.832001)">
+      <title>Right leg</title>
+    </path>
+    <circle style="fill: rgba(17, 223, 255, 0.98);" cx="32" cy="23.4" r="4">
+      <title>Window</title>
+    </circle>
+  </g>
+</svg>

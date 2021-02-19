@@ -41,11 +41,16 @@ function render() {
   bullets.forEach(renderBullet.bind(null, me));
   renderPlayer(me, me);
   others.forEach(renderPlayer.bind(null, me));
+  renderMiniMap(
+    (me.x * canvas.height) / MAP_SIZE,
+    (me.y * canvas.height) / MAP_SIZE
+  );
 }
 
 function renderBackground(x, y) {
   const backgroundX = MAP_SIZE / 2 - x + canvas.width / 2;
   const backgroundY = MAP_SIZE / 2 - y + canvas.height / 2;
+  // console.log(`x: ${backgroundX} y: ${backgroundY}`);
   const backgroundGradient = context.createRadialGradient(
     backgroundX,
     backgroundY,
@@ -60,7 +65,56 @@ function renderBackground(x, y) {
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-let name;
+function renderMiniMap(playerX, playerY) {
+  const miniMapStart = [
+    canvas.width - canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE - 10,
+    canvas.height - canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE - 10
+  ];
+
+  const newPlayerLoc = [
+    miniMapStart[0] + playerX * Constants.MINIMAP_SIZE_PERCENTAGE,
+    miniMapStart[1] + playerY * Constants.MINIMAP_SIZE_PERCENTAGE
+  ];
+
+  const miniMapCenter = [
+    miniMapStart[0] + (canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE) / 2,
+    miniMapStart[1] + (canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE) / 2
+  ];
+
+  const backgroundGradient = context.createRadialGradient(
+    miniMapCenter[0],
+    miniMapCenter[1],
+    (MAP_SIZE / 10) * Constants.MINIMAP_SIZE_PERCENTAGE,
+    miniMapCenter[0],
+    miniMapCenter[1],
+    (MAP_SIZE / 2) * Constants.MINIMAP_SIZE_PERCENTAGE
+  );
+  backgroundGradient.addColorStop(0, 'black');
+  backgroundGradient.addColorStop(1, 'gray');
+  context.strokeStyle = 'black';
+  context.lineWidth = '5';
+  context.fillStyle = backgroundGradient;
+
+  context.rect(
+    miniMapStart[0],
+    miniMapStart[1],
+    canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE,
+    canvas.height * Constants.MINIMAP_SIZE_PERCENTAGE
+  );
+  context.stroke();
+  context.fill();
+
+  //Draw a dot for where the player is.
+  context.fillStyle = '#ff0000';
+  context.beginPath();
+  context.strokeStyle = 'white';
+  context.lineWidth = '5';
+  ///context.fillRect(newPlayerLoc[0] - 4, newPlayerLoc[1] - 4, 8, 8);
+  context.arc(newPlayerLoc[0], newPlayerLoc[1], 3, 0, 2 * Math.PI);
+  context.stroke();
+  context.fill();
+}
+// let name;
 function renderPlayer(me, player) {
   const { x, y, direction } = player;
 
@@ -71,12 +125,13 @@ function renderPlayer(me, player) {
   context.translate(canvasX, canvasY);
   context.rotate(direction);
   context.drawImage(
-    player.isColliding ? getAsset('shipColliding.svg') : getAsset('ship.svg'),
+    player.isColliding ? getAsset('ship.svg') : getAsset('shipColliding.svg'),
     -PLAYER_RADIUS,
     -PLAYER_RADIUS,
     PLAYER_RADIUS * 2,
     PLAYER_RADIUS * 2
   );
+
   context.restore();
 
   // Show the players name
@@ -85,7 +140,7 @@ function renderPlayer(me, player) {
   context.textAlign = 'center';
 
   context.font = '15px monospace';
-  context.fillText('player.username', canvasX, canvasY - PLAYER_RADIUS - 6);
+  context.fillText(player.username, canvasX, canvasY - PLAYER_RADIUS - 6);
 
   // If the player health is not equal to the maximum health, then draw the health bar
   if (player.hp !== Constants.PLAYER_MAX_HP) {

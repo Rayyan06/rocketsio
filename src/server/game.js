@@ -33,6 +33,17 @@ class Game {
       this.players[socket.id].setDirection(dir);
     }
   }
+  handleKeyPress(socket, keyCode) {
+    /*
+    if (this.players[socket.id] && keyCode === 32) {
+      // Space bar hit
+      this.players[socket.id].isBoosting = true;
+    } else {
+      this.players[socket.id].isBoosting = false;
+    }
+    */
+    this.players[socket.id].isBoosting = true;
+  }
   update() {
     // Calculate time elapsed
     const now = Date.now();
@@ -64,9 +75,9 @@ class Game {
       if (this.players[b.player.id]) {
         this.players[b.player.id].isColliding = true;
         if (b.otherPlayer.hp <= 0) {
-          this.players[b.player.id].score += b.otherPlayer.score;
+          this.players[b.player.id].score += b.otherPlayer.score / 2;
         } else if (b.player.score <= 0) {
-          b.otherPlayer.score += b.player.score;
+          b.otherPlayer.score += b.player.score / 2;
         }
       }
     });
@@ -79,7 +90,7 @@ class Game {
       if (this.players[b.bullet.parentID]) {
         this.players[b.bullet.parentID].onDealtDamage();
         if (b.player.hp <= 0) {
-          this.players[b.bullet.parentID].score += b.player.score;
+          this.players[b.bullet.parentID].score += b.player.score / 2;
         }
       }
     });
