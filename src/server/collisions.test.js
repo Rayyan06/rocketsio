@@ -73,13 +73,13 @@ describe('applyBulletCollisions', () => {
     const bullet = new Bullet(
       '2',
       40,
-      40 + Constants.BULLET_RADIUS + Constants.PLAYER_RADIUS,
+      40 + Constants.BULLET_RADIUS + player.radius,
       0
     );
 
     jest.spyOn(player, 'takeBulletDamage');
 
-    const result = applyBulletCollisions([player], [bullet]);
+    const result = applyBulletCollisions([player], [bullet]).bullet;
     expect(result).toHaveLength(1);
     expect(result).toContain(bullet);
     expect(player.takeBulletDamage).toHaveBeenCalledTimes(1);

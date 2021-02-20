@@ -103,7 +103,7 @@ describe('Game', () => {
       jest.runOnlyPendingTimers();
       jest.runOnlyPendingTimers();
 
-      game.handleKeyRelease();
+      game.handleKeyRelease(socket, 32);
       jest.runOnlyPendingTimers();
       jest.runOnlyPendingTimers();
 

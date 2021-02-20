@@ -15,7 +15,7 @@ module.exports = Object.freeze({
   PLAYER_ACCELERATION: 200,
   PLAYER_SCORE_DROP_BOOSTING: 6,
 
-  MAP_SIZE: 1000,
+  MAP_SIZE: 1300,
   MSG_TYPES: {
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',
