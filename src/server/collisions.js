@@ -11,8 +11,7 @@ function applyBulletCollisions(players, bullets) {
       const player = players[j];
       if (
         bullet.parentID !== player.id &&
-        player.distanceTo(bullet) <=
-          Constants.PLAYER_RADIUS + Constants.BULLET_RADIUS
+        player.distanceTo(bullet) <= player.radius + Constants.BULLET_RADIUS
       ) {
         destroyedBullets.push({ bullet: bullet, player: player });
         player.takeBulletDamage();
@@ -32,7 +31,7 @@ function applyPlayerCollisions(players) {
       const otherPlayer = players[j];
       if (
         player.id !== otherPlayer.id &&
-        player.distanceTo(otherPlayer) <= Constants.PLAYER_RADIUS * 2
+        player.distanceTo(otherPlayer) <= player.radius + otherPlayer.radius
       ) {
         collidedPlayers.push({ player: player, otherPlayer: otherPlayer });
         player.isColliding = true;

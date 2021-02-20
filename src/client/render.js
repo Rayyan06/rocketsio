@@ -124,12 +124,23 @@ function renderPlayer(me, player) {
   context.save();
   context.translate(canvasX, canvasY);
   context.rotate(direction);
+  let playerImage;
+  if (player.isColliding) {
+    playerImage = getAsset('shipColliding.svg');
+  } else {
+    // Player is not colliding
+    if (player.isBoosting) {
+      playerImage = getAsset('shipBoosting.svg');
+    } else {
+      playerImage = getAsset('ship.svg');
+    }
+  }
   context.drawImage(
-    player.isColliding ? getAsset('ship.svg') : getAsset('shipColliding.svg'),
-    -PLAYER_RADIUS,
-    -PLAYER_RADIUS,
-    PLAYER_RADIUS * 2,
-    PLAYER_RADIUS * 2
+    playerImage,
+    -player.radius,
+    -player.radius,
+    player.radius * 2,
+    player.radius * 2
   );
 
   context.restore();
@@ -143,20 +154,20 @@ function renderPlayer(me, player) {
   context.fillText(player.username, canvasX, canvasY - PLAYER_RADIUS - 6);
 
   // If the player health is not equal to the maximum health, then draw the health bar
-  if (player.hp !== Constants.PLAYER_MAX_HP) {
+  if (player.hp !== player.maxHp) {
     // Draw health bar
     context.fillStyle = 'white';
     context.fillRect(
-      canvasX - PLAYER_RADIUS,
-      canvasY + PLAYER_RADIUS + 8,
-      PLAYER_RADIUS * 2,
+      canvasX - player.radius,
+      canvasY + player.radius + 8,
+      player.radius * 2,
       2
     );
     context.fillStyle = 'red';
     context.fillRect(
-      canvasX - PLAYER_RADIUS + (PLAYER_RADIUS * 2 * player.hp) / PLAYER_MAX_HP,
-      canvasY + PLAYER_RADIUS + 8,
-      PLAYER_RADIUS * 2 * (1 - player.hp / PLAYER_MAX_HP),
+      canvasX - player.radius + (player.maxHp * 2 * player.hp) / PLAYER_MAX_HP,
+      canvasY + player.maxHp + 8,
+      player.maxHp * 2 * (1 - player.hp / player.maxHp),
       2
     );
   }

@@ -44,3 +44,7 @@ export const updateDirection = throttle(20, dir => {
 export const handleKeyPress = keyCode => {
   socket.emit(Constants.MSG_TYPES.KEY_PRESS, keyCode);
 };
+
+export const handleKeyRelease = keyCode => {
+  socket.emit(Constants.MSG_TYPES.KEY_RELEASE, keyCode);
+};

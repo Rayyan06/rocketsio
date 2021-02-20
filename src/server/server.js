@@ -33,6 +33,7 @@ io.on('connection', socket => {
   socket.on(Constants.MSG_TYPES.JOIN_GAME, joinGame);
   socket.on(Constants.MSG_TYPES.INPUT, handleInput);
   socket.on(Constants.MSG_TYPES.KEY_PRESS, handleKeyPress);
+  socket.on(Constants.MSG_TYPES.KEY_RELEASE, handleKeyRelease);
   socket.on('disconnect', onDisconnect);
 });
 
@@ -49,6 +50,9 @@ function handleInput(dir) {
 
 function handleKeyPress(keyCode) {
   game.handleKeyPress(this, keyCode);
+}
+function handleKeyRelease(keyCode) {
+  game.handleKeyRelease(this, keyCode);
 }
 function onDisconnect() {
   game.removePlayer(this);

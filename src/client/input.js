@@ -1,4 +1,8 @@
-import { updateDirection, handleKeyPress } from './networking';
+import {
+  updateDirection,
+  handleKeyPress,
+  handleKeyRelease
+} from './networking';
 
 function onMouseInput(e) {
   handleInput(e.clientX, e.clientY);
@@ -19,14 +23,20 @@ function handleKeyDown(event) {
   handleKeyPress(keyCode);
 }
 
+function handleKeyUp(event) {
+  handleKeyRelease(event.keyCode);
+}
+
 export function startCapturingInput() {
   window.addEventListener('mousemove', onMouseInput);
   window.addEventListener('touchmove', onTouchInput);
   window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
 }
 
 export function stopCapturingInput() {
   window.removeEventListener('mousemove', onMouseInput);
   window.removeEventListener('touchmove', onTouchInput);
   window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keyup', handleKeyUp);
 }

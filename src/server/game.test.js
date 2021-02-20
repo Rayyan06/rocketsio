@@ -36,6 +36,85 @@ describe('Game', () => {
     expect(game.shouldSendUpdate).toBe(false);
   });
 
+  describe('handleKeyPress', () => {
+    it('should boost the player when he presses the space key', () => {
+      const game = new Game();
+      const socket = {
+        id: '1234',
+        emit: jest.fn()
+      };
+      game.addPlayer(socket, 'rayyan');
+
+      game.handleKeyPress(socket, 32);
+
+      // Run timers twice
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      expect(socket.emit).toHaveBeenCalledWith(
+        Constants.MSG_TYPES.GAME_UPDATE,
+        expect.objectContaining({
+          me: expect.objectContaining({ isBoosting: true })
+        })
+      );
+    });
+    it('should not boost the player when he presses another key', () => {
+      const game = new Game();
+      const socket = {
+        id: '1234',
+        emit: jest.fn()
+      };
+      game.addPlayer(socket, 'rayyan');
+
+      game.handleKeyPress(socket, 33);
+
+      // Run timers twice
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      expect(socket.emit).toHaveBeenCalledWith(
+        Constants.MSG_TYPES.GAME_UPDATE,
+        expect.objectContaining({
+          me: expect.objectContaining({ isBoosting: false })
+        })
+      );
+    });
+  });
+  describe('handleKeyRelease', () => {
+    it('should stop boosting the player when he stops pressing the space key', () => {
+      const game = new Game();
+      const socket = {
+        id: '1234',
+        emit: jest.fn()
+      };
+      game.addPlayer(socket, 'rayyan');
+
+      /*
+      Run timers a few times so player gains some score
+      */
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      game.handleKeyPress(socket, 32);
+
+      // Run timers twice
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      game.handleKeyRelease();
+      jest.runOnlyPendingTimers();
+      jest.runOnlyPendingTimers();
+
+      expect(socket.emit).toHaveBeenCalledWith(
+        Constants.MSG_TYPES.GAME_UPDATE,
+        expect.objectContaining({
+          me: expect.objectContaining({ isBoosting: false })
+        })
+      );
+    });
+  });
   describe('handleInput', () => {
     it('should update the direction of a player', () => {
       const game = new Game();

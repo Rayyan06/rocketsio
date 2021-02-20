@@ -4,7 +4,7 @@ const Constants = require('../shared/constants');
 
 describe('Player', () => {
   describe('update', () => {
-    it('should gain score each second', () => {
+    it('should gain score each second when it is not boosting', () => {
       const player = new Player('123', 'guest');
       const initialScore = player.score;
 
@@ -12,13 +12,24 @@ describe('Player', () => {
 
       expect(player.score).toBeGreaterThan(initialScore);
     });
+    it('should lose score each second when it is boosting', () => {
+      const player = new Player('123', 'guest');
+
+      player.score = 100;
+      const initialScore = player.score;
+
+      player.isBoosting = true;
+      player.update(1);
+
+      expect(player.score).toBeLessThan(initialScore);
+    });
     it('should never have its health go above the max health', () => {
       const player = new Player('123', 'guest');
 
       player.takeBulletDamage();
       player.update(5);
 
-      expect(player.hp).toBeLessThanOrEqual(Constants.PLAYER_MAX_HP);
+      expect(player.hp).toBeLessThanOrEqual(player.maxHp);
     });
     it('should fire bullet on update', () => {
       const player = new Player('123', 'guest');

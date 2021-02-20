@@ -41,11 +41,11 @@ function onGameOver(finalScore) {
   const gameOverMessage = document.getElementById('game-over-message');
 
   if (finalScore < 10) {
-    gameOverMessage.innerText = 'You just suck you idiot. Try again!';
+    gameOverMessage.innerText = 'You just suck. Try again!';
   } else if (finalScore < 20) {
     gameOverMessage.innerText = "You are messed up. Can't you be better?";
   } else if (finalScore < 50) {
-    gameOverMessage.innerText = 'Moronic Stupido. Not tooo bad';
+    gameOverMessage.innerText = 'Uhh Stupid... Not tooo bad';
   } else if (finalScore < 100) {
     gameOverMessage.innerText = 'Ugh, less than 100? Keep trying.';
   } else if (finalScore < 200) {
@@ -55,7 +55,7 @@ function onGameOver(finalScore) {
   } else if (finalScore < 1000) {
     gameOverMessage.innerText = 'Wow, you are getting good! So close to 1000!';
   } else if (finalScore < 1500) {
-    gameOverMessage.innerText = 'YOU ARE INSANE POGCHAMP';
+    gameOverMessage.innerText = 'YOU ARE INSANE';
   } else if (finalScore < 2000) {
     gameOverMessage.innerText =
       'legend is that your best? try submitting it in the world record sheet';

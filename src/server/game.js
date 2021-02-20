@@ -34,15 +34,20 @@ class Game {
     }
   }
   handleKeyPress(socket, keyCode) {
-    /*
-    if (this.players[socket.id] && keyCode === 32) {
+    if (
+      this.players[socket.id] &&
+      keyCode === 32 &&
+      this.players[socket.id].score > 0
+    ) {
       // Space bar hit
       this.players[socket.id].isBoosting = true;
-    } else {
+    }
+  }
+  handleKeyRelease(socket, keyCode) {
+    if (this.players[socket.id] && keyCode === 32) {
+      // space bar release
       this.players[socket.id].isBoosting = false;
     }
-    */
-    this.players[socket.id].isBoosting = true;
   }
   update() {
     // Calculate time elapsed

@@ -1,8 +1,8 @@
 module.exports = Object.freeze({
-  PLAYER_RADIUS: 20,
+  PLAYER_RADIUS: 15,
   PLAYER_MAX_HP: 100,
   PLAYER_SPEED: 210,
-  PLAYER_BOOST_SPEED: 2000,
+  PLAYER_BOOST_SPEED: 500,
   BULLET_SPEED: 510,
   PLAYER_FIRE_COOLDOWN: 0.4,
   BULLET_DAMAGE: 11,
@@ -12,7 +12,8 @@ module.exports = Object.freeze({
   PLAYER_HEALTH_REGEN: 3.5,
   PLAYER_DAMAGE: 2,
   MINIMAP_SIZE_PERCENTAGE: 0.2,
-  PLAYER_ACCELERATION: 20,
+  PLAYER_ACCELERATION: 200,
+  PLAYER_SCORE_DROP_BOOSTING: 6,
 
   MAP_SIZE: 1000,
   MSG_TYPES: {
@@ -20,6 +21,7 @@ module.exports = Object.freeze({
     GAME_UPDATE: 'update',
     INPUT: 'input',
     GAME_OVER: 'dead',
-    KEY_PRESS: 'keyDown'
+    KEY_PRESS: 'keyDown',
+    KEY_RELEASE: 'keyUp'
   }
 });

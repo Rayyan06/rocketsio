@@ -11,6 +11,8 @@ class Player extends ObjectClass {
     this.score = 0;
     this.isColliding = false;
     this.isBoosting = false;
+    this.radius = Constants.PLAYER_RADIUS;
+    this.maxHp = Constants.PLAYER_MAX_HP;
   }
 
   update(dt) {
@@ -18,9 +20,16 @@ class Player extends ObjectClass {
 
     // acceleration
 
-    if (this.isBoosting) {
-      this.speed += dt * Constants.PLAYER_ACCELERATION;
+    this.speed += dt * Constants.PLAYER_ACCELERATION;
+    this.radius = Constants.PLAYER_RADIUS + 2 * Math.log(this.score);
+    this.maxHp = Constants.PLAYER_MAX_HP + 2 * Math.log(this.score);
 
+    if (this.isBoosting) {
+      if (this.score > 0) {
+        this.score -= dt * Constants.PLAYER_SCORE_DROP_BOOSTING;
+      } else {
+        this.isBoosting = false;
+      }
       if (this.speed > Constants.PLAYER_BOOST_SPEED) {
         this.speed = Constants.PLAYER_BOOST_SPEED;
       }
@@ -36,8 +45,8 @@ class Player extends ObjectClass {
     // Health regen
     this.hp += dt * Constants.PLAYER_HEALTH_REGEN;
 
-    if (this.hp > Constants.PLAYER_MAX_HP) {
-      this.hp = Constants.PLAYER_MAX_HP;
+    if (this.hp > this.maxHp) {
+      this.hp = this.maxHp;
     }
 
     // The player should stay in the bounds
@@ -73,7 +82,9 @@ class Player extends ObjectClass {
       hp: this.hp,
       isColliding: this.isColliding,
       username: this.username,
-      isBoosting: this.isBoosting
+      isBoosting: this.isBoosting,
+      radius: this.radius,
+      maxHp: this.maxHp
     };
   }
 }
