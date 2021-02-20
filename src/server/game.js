@@ -81,7 +81,7 @@ class Game {
         this.players[b.player.id].isColliding = true;
         if (b.otherPlayer.hp <= 0) {
           this.players[b.player.id].score += b.otherPlayer.score / 2;
-        } else if (b.player.score <= 0) {
+        } else if (b.player.hp <= 0) {
           b.otherPlayer.score += b.player.score / 2;
         }
       }
