@@ -165,9 +165,9 @@ function renderPlayer(me, player) {
     );
     context.fillStyle = 'red';
     context.fillRect(
-      canvasX - player.radius + (player.maxHp * 2 * player.hp) / PLAYER_MAX_HP,
-      canvasY + player.maxHp + 8,
-      player.maxHp * 2 * (1 - player.hp / player.maxHp),
+      canvasX - player.radius + player.radius * 2 * (player.hp / player.maxHp),
+      canvasY + player.radius + 8,
+      player.radius * 2 * (1 - player.hp / player.maxHp),
       2
     );
   }

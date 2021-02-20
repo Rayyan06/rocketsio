@@ -22,10 +22,10 @@ class Player extends ObjectClass {
 
     this.speed += dt * Constants.PLAYER_ACCELERATION;
     this.radius = Constants.PLAYER_RADIUS + 2 * Math.log(this.score);
-    this.maxHp = Constants.PLAYER_MAX_HP + 2 * Math.log(this.score);
+    this.maxHp = Constants.PLAYER_MAX_HP;
 
     if (this.isBoosting) {
-      if (this.score > 0) {
+      if (this.score > Constants.PLAYER_SCORE_DROP_BOOSTING) {
         this.score -= dt * Constants.PLAYER_SCORE_DROP_BOOSTING;
       } else {
         this.isBoosting = false;

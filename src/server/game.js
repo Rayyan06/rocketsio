@@ -37,7 +37,7 @@ class Game {
     if (
       this.players[socket.id] &&
       keyCode === 32 &&
-      this.players[socket.id].score > 0
+      this.players[socket.id].score > Constants.PLAYER_SCORE_DROP_BOOSTING
     ) {
       // Space bar hit
       this.players[socket.id].isBoosting = true;
@@ -106,9 +106,11 @@ class Game {
     Object.keys(this.sockets).forEach(playerID => {
       const socket = this.sockets[playerID];
       const player = this.players[playerID];
+      //console.log(player.hp);
+      //console.log(player.maxHp);
       if (player.hp <= 0) {
         let finalScore = player.score;
-        console.log(finalScore);
+        //console.log(finalScore);
         socket.emit(Constants.MSG_TYPES.GAME_OVER, finalScore);
         this.removePlayer(socket);
       }

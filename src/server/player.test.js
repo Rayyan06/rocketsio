@@ -23,6 +23,13 @@ describe('Player', () => {
 
       expect(player.score).toBeLessThan(initialScore);
     });
+    it('should have its player radius increase when it gains score', () => {
+      const player = new Player('123', 'guest');
+      const initialRadius = player.radius;
+
+      player.score += 10;
+      expect(player.radius).toBeGreaterThan(initialRadius);
+    });
     it('should never have its health go above the max health', () => {
       const player = new Player('123', 'guest');
 
