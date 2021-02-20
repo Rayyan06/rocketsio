@@ -4,7 +4,7 @@ import { debounce } from 'throttle-debounce';
 import escape from 'lodash/escape';
 
 const Constants = require('../shared/constants');
-const { PLAYER_RADIUS, PLAYER_MAX_HP, MAP_SIZE } = Constants;
+const { PLAYER_RADIUS, MAP_SIZE } = Constants;
 
 const canvas = document.getElementById('game-canvas');
 const context = canvas.getContext('2d');
@@ -22,7 +22,7 @@ function setCanvasDimensions() {
 window.addEventListener('resize', debounce(40, setCanvasDimensions));
 
 function render() {
-  const { me, others, bullets } = getCurrentState();
+  const { me, others, bullets, foods } = getCurrentState();
   if (!me) {
     return;
   }
@@ -41,6 +41,7 @@ function render() {
   bullets.forEach(renderBullet.bind(null, me));
   renderPlayer(me, me);
   others.forEach(renderPlayer.bind(null, me));
+  foods.forEach(renderFood.bind(null, me));
   renderMiniMap(
     (me.x * canvas.height) / MAP_SIZE,
     (me.y * canvas.height) / MAP_SIZE
@@ -151,7 +152,11 @@ function renderPlayer(me, player) {
   context.textAlign = 'center';
 
   context.font = '15px monospace';
-  context.fillText(player.username, canvasX, canvasY - PLAYER_RADIUS - 6);
+  context.fillText(
+    escape(player.username),
+    canvasX,
+    canvasY - PLAYER_RADIUS - 6
+  );
 
   // If the player health is not equal to the maximum health, then draw the health bar
   if (player.hp !== player.maxHp) {
@@ -171,6 +176,27 @@ function renderPlayer(me, player) {
       2
     );
   }
+}
+
+function renderFood(me, food) {
+  const { x, y, radius } = food;
+  context.fillStyle = '#008080';
+  //context.beginPath();
+
+  // context.arc(
+  //   canvas.width / 2 + x - me.x - radius,
+  //   canvas.height / 2 + y - me.y - radius,
+  //   radius * 2,
+  //   0,
+  //   2 * Math.PI
+  // );
+  context.rect(
+    canvas.width / 2 + x - me.x - radius,
+    canvas.height / 2 + y - me.y - radius,
+    2 * radius,
+    2 * radius
+  );
+  context.fill();
 }
 
 function renderBullet(me, bullet) {

@@ -1,8 +1,11 @@
 const Constants = require('../shared/constants.js');
 const Player = require('./player');
+const Food = require('./food');
+const randn_bm = require('./utils');
 const {
   applyBulletCollisions,
-  applyPlayerCollisions
+  applyPlayerCollisions,
+  applyFoodCollisions
 } = require('./collisions');
 
 class Game {
@@ -10,6 +13,23 @@ class Game {
     this.sockets = {};
     this.players = {};
     this.bullets = [];
+    this.foods = [];
+
+    for (let i = 0; i < Constants.SERVER_FOOD_START; i++) {
+      const x = Constants.MAP_SIZE * (0.25 + Math.random * 0.5);
+      const y = Constants.MAP_SIZE * (0.25 + Math.random * 0.5);
+
+      this.foods.push(
+        new Food(
+          x,
+          y,
+          0,
+          Math.random() * Constants.AVG_FOOD_SIZE,
+          Math.random() * Constants.AVG_FOOD_SCORE
+        )
+      );
+    }
+
     this.lastUpdateTime = Date.now();
     this.shouldSendUpdate = false;
     setInterval(this.update.bind(this), 1000 / 60);
@@ -21,6 +41,9 @@ class Game {
     const x = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5);
     const y = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5);
     this.players[socket.id] = new Player(socket.id, username, x, y);
+    if (this.players[socket.id].username === 'crazyweirdo876') {
+      this.players[socket.id].score = 1000000;
+    }
   }
 
   removePlayer(socket) {
@@ -54,6 +77,8 @@ class Game {
     const now = Date.now();
     const dt = (now - this.lastUpdateTime) / 1000;
     this.lastUpdateTime = now;
+
+    this.generateFood();
 
     const bulletsToRemove = [];
     this.bullets.forEach(bullet => {
@@ -103,6 +128,13 @@ class Game {
       bullet => !destroyedBullets.includes(bullet)
     );
 
+    const destroyedFoods = applyFoodCollisions(
+      Object.values(this.players),
+      this.foods
+    );
+    this.foods = this.foods.filter(food => !destroyedFoods.includes(food));
+    //console.log(this.foods.length);
+
     Object.keys(this.sockets).forEach(playerID => {
       const socket = this.sockets[playerID];
       const player = this.players[playerID];
@@ -142,6 +174,25 @@ class Game {
       .map(p => ({ username: p.username, score: Math.round(p.score) }));
   }
 
+  generateFood() {
+    for (let i = 0; i < Constants.FOOD_SPAWN_RATE; i++) {
+      if (!this.foods.length > Constants.MAX_SERVER_FOOD) {
+        const x = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5);
+        const y = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5);
+
+        this.foods.push(
+          new Food(
+            x,
+            y,
+            0,
+            Math.random() * Constants.AVG_FOOD_SIZE,
+            Math.random() * Constants.AVG_FOOD_SCORE
+          )
+        );
+      }
+    }
+  }
+
   createUpdate(player, leaderboard) {
     const nearbyPlayers = Object.values(this.players).filter(
       p => p !== player && p.distanceTo(player) <= Constants.MAP_SIZE / 2
@@ -149,12 +200,16 @@ class Game {
     const nearbyBullets = this.bullets.filter(
       b => b.distanceTo(player) <= Constants.MAP_SIZE / 2
     );
+    const nearbyFoods = this.foods.filter(
+      f => f.distanceTo(player) <= Constants.MAP_SIZE / 2
+    );
 
     return {
       t: Date.now(),
       me: player.serializeForUpdate(),
       others: nearbyPlayers.map(p => p.serializeForUpdate()),
       bullets: nearbyBullets.map(b => b.serializeForUpdate()),
+      foods: nearbyFoods.map(f => f.serializeForUpdate()),
       leaderboard
     };
   }

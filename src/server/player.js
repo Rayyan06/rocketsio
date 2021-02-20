@@ -21,9 +21,12 @@ class Player extends ObjectClass {
     // acceleration
 
     this.speed += dt * Constants.PLAYER_ACCELERATION;
-    this.radius = Constants.PLAYER_RADIUS + 2 * Math.log(this.score);
-    this.maxHp = Constants.PLAYER_MAX_HP;
+    this.radius = Constants.PLAYER_RADIUS + 3 * Math.log(this.score + 1);
+    let oldMaxHp = this.maxHp;
+    this.maxHp = Constants.PLAYER_MAX_HP + 10 * Math.log(this.score + 1);
 
+    let hpRatio = oldMaxHp / this.maxHp;
+    this.hp *= hpRatio;
     if (this.isBoosting) {
       if (this.score > Constants.PLAYER_SCORE_DROP_BOOSTING) {
         this.score -= dt * Constants.PLAYER_SCORE_DROP_BOOSTING;
@@ -74,6 +77,9 @@ class Player extends ObjectClass {
   }
   onPlayerCollision() {
     this.hp -= Constants.PLAYER_DAMAGE;
+  }
+  eatFood(food) {
+    this.score += food.score;
   }
   serializeForUpdate() {
     return {

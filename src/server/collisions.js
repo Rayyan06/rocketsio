@@ -44,4 +44,25 @@ function applyPlayerCollisions(players) {
   return collidedPlayers;
 }
 
-module.exports = { applyBulletCollisions, applyPlayerCollisions };
+function applyFoodCollisions(players, foods) {
+  const eatenFood = [];
+  for (let i = 0; i < foods.length; i++) {
+    // Look for a player who hit a food
+    for (let j = 0; j < players.length; j++) {
+      const food = foods[i];
+      const player = players[j];
+      if (player.distanceTo(food) <= player.radius + food.radius) {
+        eatenFood.push({ player: player, food: food });
+        player.eatFood(food);
+        break;
+      }
+    }
+  }
+  return eatenFood;
+}
+
+module.exports = {
+  applyBulletCollisions,
+  applyPlayerCollisions,
+  applyFoodCollisions
+};
